@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def error_message(e)
     render json: {
-      result: e.message
+      result: "#{e.class}: #{e.message}"
     }
   end
 end

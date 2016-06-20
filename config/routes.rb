@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     collection do
       post :evaluate
       post :spec
+      get :realtime
+      post :set_realtime
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

@@ -12,11 +12,33 @@ class EditorsController < ApplicationController
 
   def spec
     parse_code
-    num = 1
-    File.open("#{Rails.root}/lib/code/1.rb", "w+") {|file| file.write(@code_string) }
+    num = params[:q] || 0
+    path = "#{Rails.root}/lib/code/#{num}.rb"
+    File.open(path, "w+") {|file| file.write(@code_string) }
+    eval(File.read(path))
     result = %x[cd #{Rails.root} && rspec spec/lib/#{num}_spec.rb --format html]
-    render :json => {:result => result}
+    render json: {
+      result: result,
+      status: 'ok'
+    }
   end
+
+  def realtime
+    render json: {
+      code:   CurrentCode.code.join("\n"),
+      result: CurrentCode.result
+    }
+  end
+
+  def set_realtime
+    CurrentCode.set_code(params[:code])     if params[:code]
+    CurrentCode.set_result(params[:result]) if params[:result]
+    render json: {
+      result: 'ok'
+    }
+  end
+
+  private
 
   def parse_code
     code_array = params[:code]

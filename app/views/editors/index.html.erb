@@ -1,10 +1,11 @@
 <div class="wrapper">
   <div class="header" style="margin-top:15px;"><span>實作 <%= @code.q %></span></div>
   <div id="question"><%= @code.description %></div>
-  <div class="header"><span>編輯器</span></div>
+  <div class="header mode"><span>寫作模式</span></div>
   <div id="editor"><%= @code.content %></div>
   <div id="result">
     <div id="body"></div>
   </div>
   <button class="send btn btn-primary pull-right" id="send">送出</button>
+  <button class="btn btn-success pull-right" id="observer" style="margin-right: 20px;">切換模式</button>
 </div>
