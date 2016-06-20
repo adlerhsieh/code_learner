@@ -13,7 +13,7 @@
       display_pending();
 
       return $.ajax({
-        url: '/editors/evaluate',
+        url: '/editors/spec',
         type: 'POST',
         data: {
           'code': code
@@ -26,11 +26,12 @@
     };
 
     display_pending = function() {
-      $("#result").text("處理中...");
+      $("#result #body").text("處理中...");
     };
 
     print_result = function(text) {
-      $("#result").text(text);
+      $("#result #body").html(text);
+      $("#rspec-header").hide();
     };
 
     compute_result();
