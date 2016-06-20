@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :editors do
     collection do
       post :evaluate
+      post :spec
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

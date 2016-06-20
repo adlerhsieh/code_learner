@@ -11,4 +11,8 @@ class EditorsController < ApplicationController
     result = eval(@code_string)
     render :json => {:result => result}
   end
+
+  def spec
+    
+  end
 end
