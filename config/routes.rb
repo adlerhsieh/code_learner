@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: 'sessions#new'
+  get '/practices' => "editors#index"
   resources :editors do
     collection do
       post :evaluate
@@ -7,6 +9,9 @@ Rails.application.routes.draw do
       post :set_realtime
     end
   end
+
+  post '/sessions' => 'sessions#create'
+  get '/sign_out' => 'sessions#destroy'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

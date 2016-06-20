@@ -1,4 +1,6 @@
 class EditorsController < ApplicationController
+  before_action :authenticate
+
   def index
     @q    = params[:q] || 0
     @code = Code.find_by_q(@q)
@@ -45,5 +47,9 @@ class EditorsController < ApplicationController
     if code_array.class == Array && code_array.length > 0
       @code_string = code_array.inject("") { |result, line| result += line + ";"}
     end
+  end
+
+  def authenticate
+    redirect_to '/' unless current_user
   end
 end

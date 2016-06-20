@@ -6,6 +6,8 @@
 </head>
 <body>
 
+<%= notice %>
+<%= link_to('登出', '/sign_out', class: 'pull-right', style: 'margin-top: 5px; margin-right: 40px;') if current_user %>
 <%= yield %>
 
   <%= stylesheet_link_tag 'application', media: 'all' %>

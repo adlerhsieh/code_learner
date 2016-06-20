@@ -7,5 +7,7 @@
     <div id="body"></div>
   </div>
   <button class="send btn btn-primary pull-right" id="send">送出</button>
-  <button class="btn btn-success pull-right" id="observer" style="margin-right: 20px;">切換模式</button>
+  <% if current_user.admin? %>
+    <button class="btn btn-success pull-right" id="observer" style="margin-right: 20px;">切換模式</button>
+  <% end %>
 </div>

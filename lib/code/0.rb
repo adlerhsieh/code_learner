@@ -1,1 +1,1 @@
-def plus(x, y); 1 + 4;end;
+def plus(x, y);;end;

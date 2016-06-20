@@ -1,0 +1,8 @@
+<div class="wrapper" style="margin-top: 40px;">
+  <h3>登入</h3>
+  <%= form_tag '/sessions' do %>
+    <p>帳號：<%= text_field_tag :account %></p>
+    <p>密碼：<%= password_field_tag :password %></p>
+    <%= submit_tag '登入', class: 'btn btn-primary', style: 'width: 100px;' %>
+  <% end %>
+</div>
