@@ -1,7 +1,10 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+Code.delete_all
+
+Code.create(
+  q: 0,
+  description: "建立一個method名稱為plus，可以將兩個帶入的參數相加，\n"\
+  "例如：plus(1,2)將得到結果3",
+  content: "def plus(x, y)\n"\
+  "\n"\
+  "end"
+)

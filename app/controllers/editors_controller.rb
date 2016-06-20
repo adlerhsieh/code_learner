@@ -1,6 +1,7 @@
 class EditorsController < ApplicationController
   def index
-    
+    @q    = params[:q] || 0
+    @code = Code.find_by_q(@q)
   end
 
   def evaluate

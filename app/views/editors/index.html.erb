@@ -1,15 +1,8 @@
 <div class="wrapper">
-  <div id="question"></div>
-  <div class="header">
-    <div class="left">
-      <span>編輯器</span>
-    </div>
-  </div>
-  <div id="editor">
-def plus(x, y)      
-
-end
-  </div>
+  <div class="header" style="margin-top:15px;"><span>實作 <%= @code.q %></span></div>
+  <div id="question"><%= @code.description %></div>
+  <div class="header"><span>編輯器</span></div>
+  <div id="editor"><%= @code.content %></div>
   <div id="result">
     <div id="body"></div>
   </div>
