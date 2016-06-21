@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    redirect_to '/practices' if current_user
   end
 
   def create
