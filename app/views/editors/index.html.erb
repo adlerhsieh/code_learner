@@ -8,6 +8,8 @@
   </div>
   <button class="send btn btn-primary pull-right" id="send">送出</button>
   <% if current_user.admin? %>
-    <button class="btn btn-success pull-right" id="observer" style="margin-right: 20px;">切換模式</button>
+    <button class="btn btn-success pull-right" id="observer" style="">切換模式</button>
+    <%= link_to '下一題', practices_path(q: @q + 1), class: 'btn btn-default pull-right', id: 'next' %>
+    <%= link_to('上一題', practices_path(q: @q - 1), class: 'btn btn-default pull-right', id: 'previous') unless @q == 0 %>
   <% end %>
 </div>

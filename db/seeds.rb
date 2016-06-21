@@ -26,3 +26,12 @@ Code.create(
   "\n"\
   "end"
 )
+
+Code.create(
+  q: 1,
+  description: "建立一個method名稱為sum，可以計算整數x和整數y之間所有值的總和，\n"\
+  "例如：sum(1,10)將得到結果55",
+  content: "def sum(x, y)\n"\
+  "\n"\
+  "end"
+)

@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
   root to: 'sessions#new'
-  get '/practices' => "editors#index"
+  get '/practices' => "editors#index", as: 'practices'
   resources :editors do
     collection do
       post :evaluate
       post :spec
       get :realtime
       post :set_realtime
+      post :toggle_observer
     end
   end
 

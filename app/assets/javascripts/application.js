@@ -16,3 +16,4 @@
 //= require ace
 //= require mode-ruby
 //= require theme-twilight
+//= require theme-chrome

@@ -2,7 +2,8 @@ class EditorsController < ApplicationController
   before_action :authenticate
 
   def index
-    @q    = params[:q] || 0
+    @q    = params[:q].to_i || 0
+    CurrentCode.set_q(@q)
     @code = Code.find_by_q(@q)
   end
 
@@ -14,7 +15,7 @@ class EditorsController < ApplicationController
 
   def spec
     parse_code
-    num = params[:q] || 0
+    num = params[:q].to_i || 0
     path = "#{Rails.root}/lib/code/#{num}.rb"
     File.open(path, "w+") {|file| file.write(@code_string) }
     if code_valid?
@@ -30,15 +31,31 @@ class EditorsController < ApplicationController
   end
 
   def realtime
+    if !current_user.admin? && !CurrentCode.observer
+      @observer = 'non-observer'
+    end
     render json: {
       code:   CurrentCode.code.join("\n"),
-      result: CurrentCode.result
+      result: CurrentCode.result,
+      observer: @observer,
+      q: CurrentCode.q
     }
   end
 
   def set_realtime
     CurrentCode.set_code(params[:code])     if params[:code]
     CurrentCode.set_result(params[:result]) if params[:result]
+    result = 'ok'
+    if !current_user.admin? && CurrentCode.observer
+      result = 'observer'
+    end
+    render json: {
+      result: result
+    }
+  end
+
+  def toggle_observer
+    CurrentCode.set_observer(CurrentCode.observer.!)
     render json: {
       result: 'ok'
     }

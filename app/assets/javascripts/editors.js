@@ -15,7 +15,8 @@
         url: '/editors/spec',
         type: 'POST',
         data: {
-          'code': code
+          'code': code,
+          'q': queryString('q')
         },
         success: function(response) {
           keys = {};
@@ -23,6 +24,17 @@
         }
       });
     };
+
+    var queryString = function(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                return sParameterName[1];
+            }
+        }
+    }
 
     var display_pending = function() {
       $("#result #body").text("處理中...");
@@ -68,6 +80,10 @@
           'result': result
         },
         success: function(response) {
+          if(response.result == 'observer') {
+            observer = false;
+            toggle_observer();
+          };
         }
       });
     };
@@ -81,6 +97,13 @@
           editor.setValue(response.code, 1);
           print_result(response.result);
           update_code(response.code);
+          if(response.observer == 'non-observer') {
+            observer = true;
+            toggle_observer();
+          };
+          if(response.q != queryString('q')) {
+            location.href = "/practices?q=" + response.q;
+          };
         }
       });
     };
@@ -94,18 +117,36 @@
       };
     }, 1000);
 
-    $("#observer").click(function(){
+    var toggle_observer = function(){
       if(observer == false){
         observer = true;
         $(".header.mode span").text("觀察模式");
+        editor.setTheme("ace/theme/chrome");
+        $("#editor").addClass("frame");
+        $(".mode").addClass("observer");
         $("#observer").addClass("btn-warning");
         $("#observer").removeClass("btn-success");
       }else{
         observer = false;
         $(".header.mode span").text("寫作模式");
+        editor.setTheme("ace/theme/twilight");
+        $("#editor").removeClass("frame");
+        $(".mode").removeClass("observer");
         $("#observer").addClass("btn-success");
         $("#observer").removeClass("btn-warning");
       };
+    };
+
+    var toggle_server_observer = function(){
+      $.ajax({
+        url: '/editors/toggle_observer',
+        type: 'POST'
+      });
+    };
+
+    $("#observer").click(function(){
+      toggle_observer();
+      toggle_server_observer();
     });
 
   });
