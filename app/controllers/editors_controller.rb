@@ -17,8 +17,12 @@ class EditorsController < ApplicationController
     num = params[:q] || 0
     path = "#{Rails.root}/lib/code/#{num}.rb"
     File.open(path, "w+") {|file| file.write(@code_string) }
-    eval(File.read(path))
-    result = %x[cd #{Rails.root} && rspec spec/lib/#{num}_spec.rb --format html]
+    if code_valid?
+      eval(File.read(path))
+      result = %x[cd #{Rails.root} && rspec spec/lib/#{num}_spec.rb --format html]
+    else
+      result = '錯誤'
+    end
     render json: {
       result: result,
       status: 'ok'
@@ -51,5 +55,9 @@ class EditorsController < ApplicationController
 
   def authenticate
     redirect_to '/' unless current_user
+  end
+
+  def code_valid?
+    ['File', 'FileUtils', 'rm -rf', 'system(', 'system ', '%x['].any? {|str| @code_string.include?(str) }.!
   end
 end
